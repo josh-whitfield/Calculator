@@ -1,0 +1,9 @@
+G:\BS\Josh_Whitfield\3. University\Homework\Calculator\Calculator\bin\Debug\Calculator.exe.config
+G:\BS\Josh_Whitfield\3. University\Homework\Calculator\Calculator\bin\Debug\Calculator.exe
+G:\BS\Josh_Whitfield\3. University\Homework\Calculator\Calculator\bin\Debug\Calculator.pdb
+G:\BS\Josh_Whitfield\3. University\Homework\Calculator\Calculator\obj\Debug\Calculator.csprojResolveAssemblyReference.cache
+G:\BS\Josh_Whitfield\3. University\Homework\Calculator\Calculator\obj\Debug\Calculator.Form1.resources
+G:\BS\Josh_Whitfield\3. University\Homework\Calculator\Calculator\obj\Debug\Calculator.Properties.Resources.resources
+G:\BS\Josh_Whitfield\3. University\Homework\Calculator\Calculator\obj\Debug\Calculator.csproj.GenerateResource.Cache
+G:\BS\Josh_Whitfield\3. University\Homework\Calculator\Calculator\obj\Debug\Calculator.exe
+G:\BS\Josh_Whitfield\3. University\Homework\Calculator\Calculator\obj\Debug\Calculator.pdb

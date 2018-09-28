@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+//Needed for calculation at the end
 using System.Data;
 
 namespace Calculator
@@ -11,8 +12,10 @@ namespace Calculator
             InitializeComponent();
         }
 
+        //Used in multiple methods to determine whether or not the last character in the equation is a number
         public int n;
 
+        #region //Windows form button clicks (numbers and symbols)
         private void btn0_Click(object sender, EventArgs e)
         {
             txtDisplay.Text = txtDisplay.Text + "0";
@@ -65,9 +68,11 @@ namespace Calculator
 
         private void btnDot_Click(object sender, EventArgs e)
         {
+            //If the statement is not empty AND the last character is a number AND the last character is a number.
+            //The "IF Empty" check must be done first to avoid an "Out of Range" error with the second check.
             if (txtDisplay.Text != "")
             {
-                if (int.TryParse(txtDisplay.Text.Substring(txtDisplay.Text.Length - 1, 1), out n) || txtDisplay.Text.Substring(txtDisplay.Text.Length - 1, 1) == ")")
+                if (int.TryParse(txtDisplay.Text.Substring(txtDisplay.Text.Length - 1, 1), out n))
                 {
                     txtDisplay.Text = txtDisplay.Text + ".";
                 }
@@ -77,6 +82,8 @@ namespace Calculator
 
         private void btnDiv_Click(object sender, EventArgs e)
         {
+            //If the statement is not empty AND the last character is a number AND the last character is a number, OR the last character is a closing bracket.
+            //The "IF Empty" check must be done first to avoid an "Out of Range" error with the second check.
             if (txtDisplay.Text != "")
             {
                 if (int.TryParse(txtDisplay.Text.Substring(txtDisplay.Text.Length - 1, 1), out n) || txtDisplay.Text.Substring(txtDisplay.Text.Length - 1, 1) == ")")
@@ -88,6 +95,8 @@ namespace Calculator
 
         private void btnMul_Click(object sender, EventArgs e)
         {
+            //If the statement is not empty AND the last character is a number AND the last character is a number, OR the last character is a closing bracket.
+            //The "IF Empty" check must be done first to avoid an "Out of Range" error with the second check.
             if (txtDisplay.Text != "")
             {
                 if (int.TryParse(txtDisplay.Text.Substring(txtDisplay.Text.Length - 1, 1), out n) || txtDisplay.Text.Substring(txtDisplay.Text.Length - 1, 1) == ")")
@@ -99,6 +108,8 @@ namespace Calculator
 
         private void btnSub_Click(object sender, EventArgs e)
         {
+            //If the statement is not empty AND the last character is a number AND the last character is a number, OR the last character is a closing bracket.
+            //The "IF Empty" check must be done first to avoid an "Out of Range" error with the second check.
             if (txtDisplay.Text != "")
             {
                 if (int.TryParse(txtDisplay.Text.Substring(txtDisplay.Text.Length - 1, 1), out n) || txtDisplay.Text.Substring(txtDisplay.Text.Length - 1, 1) == ")")
@@ -110,6 +121,8 @@ namespace Calculator
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            //If the statement is not empty AND the last character is a number AND the last character is a number, OR the last character is a closing bracket.
+            //The "IF Empty" check must be done first to avoid an "Out of Range" error with the second check.
             if (txtDisplay.Text != "")
             {
                 if (int.TryParse(txtDisplay.Text.Substring(txtDisplay.Text.Length - 1, 1), out n) || txtDisplay.Text.Substring(txtDisplay.Text.Length - 1, 1) == ")")
@@ -121,10 +134,12 @@ namespace Calculator
 
         private void btnOpenBracket_Click(object sender, EventArgs e)
         {
+            //If the statement is empty, just add the bracket.
             if (txtDisplay.Text == "")
             {
                 txtDisplay.Text = txtDisplay.Text + "(";
             }
+            //If the statement is not empty, the last character can't be a number or a closing bracket.
             else if (!int.TryParse(txtDisplay.Text.Substring(txtDisplay.Text.Length - 1, 1), out n) && txtDisplay.Text.Substring(txtDisplay.Text.Length - 1, 1) != ")")
             {
                 txtDisplay.Text = txtDisplay.Text + "(";
@@ -133,6 +148,8 @@ namespace Calculator
 
         private void btnCloseBracket_Click(object sender, EventArgs e)
         {
+            //If the statement is not empty AND the last character is a number AND the last character is a number, OR the last character is a closing bracket.
+            //The "IF Empty" check must be done first to avoid an "Out of Range" error with the second check.
             if (txtDisplay.Text != "")
             {
                 if (int.TryParse(txtDisplay.Text.Substring(txtDisplay.Text.Length - 1, 1), out n) || txtDisplay.Text.Substring(txtDisplay.Text.Length - 1, 1) == ")")
@@ -144,6 +161,7 @@ namespace Calculator
 
         private void btnBack_Click(object sender, EventArgs e)
         {
+            //If the statement is not empty, remove the last character
             if (txtDisplay.Text != "")
             {
                 txtDisplay.Text = txtDisplay.Text.Remove(txtDisplay.Text.Length - 1);
@@ -152,26 +170,33 @@ namespace Calculator
 
         private void btnClear_Click(object sender, EventArgs e)
         {
+            //Clear the statement
             txtDisplay.Text = "";
         }
 
         private void btnEquals_Click(object sender, EventArgs e)
         {
+            //Validate equation to see if the statement is empty
             if (txtDisplay.Text == "")
             {
                 MessageBox.Show("Input data before pressing enter!");
             }
             else
             {
+                //If the statement is not empty, make sure it ends in either a number or a closing bracket
                 if (int.TryParse(txtDisplay.Text.Substring(txtDisplay.Text.Length - 1, 1), out n) == false && txtDisplay.Text.Substring(txtDisplay.Text.Length - 1, 1) != ")")
                 {
                     MessageBox.Show("Invalid character at end of string.");
                 }
                 else
                 {
+                    //Remove any spaces, and replace "X" with "*". The star will work when doing the calculation, but an "X" will not.
                     string result = "";
                     string formula = txtDisplay.Text.Replace(" ", "");
                     formula = txtDisplay.Text.Replace("X", "*");
+
+                    //Try to do the calculation, if it fails, report an error to the screen.
+                    //This will also automatically handle divide by zero errors.
                     try
                     {
                         result = new DataTable().Compute(formula, null).ToString();
@@ -185,7 +210,9 @@ namespace Calculator
                 }
             }
         }
+        #endregion
 
+        #region //Keyboard button presses
         private void btn_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
@@ -253,5 +280,6 @@ namespace Calculator
                 }
             }
         }
+        #endregion
     }
 }
